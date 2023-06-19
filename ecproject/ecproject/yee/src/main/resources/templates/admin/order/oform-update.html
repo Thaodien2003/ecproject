@@ -1,0 +1,203 @@
+			<!-- BEGIN PAGE CONTENT-->
+			<div th:fragment="order-update" class="row">
+				<div class="col-md-12">
+					<div class="tabbable tabbable-custom boxless tabbable-reversed">
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab_0">
+								<div class="portlet box green">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="fa fa-pencil-square-o"></i>Order Update Form
+										</div>
+										<div class="tools">
+											<a href="javascript:;" class="collapse">
+											</a>
+											<a href="#portlet-config" data-toggle="modal" class="config">
+											</a>
+											<a href="javascript:;" class="reload">
+											</a>
+											<a href="javascript:;" class="remove">
+											</a>
+										</div>
+									</div>
+									<div class="portlet-body form">
+										<!-- BEGIN FORM-->
+										<form th:action="@{/admin/order-update/{id}(id=${order.id})}" th:object="${entity}" class="form-horizontal" method="post" enctype="multipart/form-data">
+											<div class="form-body">
+                                                <div class="form-group last">
+													<label class="col-md-3 control-label">Admin</label>
+													<div class="col-md-4">
+														<span class="form-control-static" th:text="${session.user.fullname}">
+														 </span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">Order ID</label>
+													<div class="col-md-4">
+														<input name="id" type="number" class="form-control input-circle" th:value="${order.id}" readonly>
+														<!-- <span class="help-block">
+														A block of help text. </span> -->
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">Order People</label>
+													<div class="col-md-4">
+                                                        <input name="user.id" type="text" class="form-control input-circle" th:value="${order.user.id}" readonly>
+													</div>
+												</div>
+                                                <div class="form-group">
+													<label class="col-md-3 control-label">Customer</label>
+													<div class="col-md-4">
+                                                        <input name="rpeople" type="text" class="form-control input-circle" th:value="${order.rpeople}">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">Order Date</label>
+													<div class="col-md-4">
+														<div class="input-group">
+															<span class="input-group-addon input-circle-left">
+															<i class="fa fa-pencil-square-o"></i>
+															</span>
+															<input name="orderDate" th:value="${#dates.format(order.orderDate, 'dd/MM/yyyy')}" type="text" class="form-control input-circle-right" readonly>
+														</div>
+													</div>
+												</div>
+                                                <div class="form-group">
+													<label class="col-md-3 control-label">Telephone</label>
+													<div class="col-md-4">
+														<div class="input-group">
+															<span class="input-group-addon input-circle-left">
+															<i class="fa fa-pencil-square-o"></i>
+															</span>
+															<input name="telephone" th:value="${order.telephone}" type="text" class="form-control input-circle-right" placeholder="example:09888888">
+														</div>
+													</div>
+												</div>
+                                                <div class="form-group">
+													<label class="col-md-3 control-label">Address</label>
+													<div class="col-md-4">
+														<div class="input-group">
+															<span class="input-group-addon input-circle-left">
+															<i class="fa fa-pencil-square-o"></i>
+															</span>
+															<input name="address" th:value="${order.address}" type="text" class="form-control input-circle-right" placeholder="example:HCM City">
+														</div>
+													</div>
+												</div>
+                                                <div class="form-group">
+													<label class="col-md-3 control-label">Amount</label>
+													<div class="col-md-4">
+														<div class="input-group">
+															<span class="input-group-addon input-circle-left">
+															<i class="fa fa-pencil-square-o"></i>
+															</span>
+															<input name="orderTotal" type="text" th:value="${#numbers.formatInteger(order.amount,3,'POINT')}"  class="form-control input-circle-right" placeholder="example: 10.000.000">
+														</div>
+													</div>
+												</div>
+                                                <div class="form-group">
+													<label class="col-md-3 control-label">Status</label>
+													<div class="col-md-8">
+														<div class="input-group radio-list">
+															<label class="radio-inline">
+                                                            <input id="r1" type="radio" name="status" value="1" checked> Preparing </label>
+                                                            <label class="radio-inline">
+                                                            <input id="r2" type="radio" name="status" value="2"> Shipping </label>
+                                                            <label class="radio-inline">
+                                                            <input id="r3" type="radio" name="status" value="3"> Shipped </label>
+                                                            <label class="radio-inline">
+                                                            <input id="r4" type="radio" name="status" value="4"> Order Canceled </label>
+														</div>
+													</div>
+												</div>
+                                                <div class="form-group">
+													<label class="col-md-3 control-label">Description</label>
+													<div class="col-md-8">
+														<div class="input-group">
+															<textarea name="description" id="xiaoyi-ckeditor" th:text="${order.description}"></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-actions">
+												<div class="row">
+													<div class="col-md-offset-3 col-md-9">
+														<button type="submit" class="btn btn-circle blue">Update</button>
+														<button type="reset" class="btn btn-circle default">Cancel</button>
+													</div>
+												</div>
+											</div>
+											<table class="table table-striped table-hover table-bordered" id="">
+												<thead>
+												<tr>
+													<td class="text-left">Product ID</td>
+													<td class="text-left">Image</td>
+													<td class="text-left">Product Name</td>
+													<td class="text-right">UnitPrice</td>
+													<td class="text-right">Discount</td>
+													<td class="text-right">Quantity</td>
+													<td class="text-right">Total</td>
+												</tr>
+												</thead>
+												<tbody>
+													<tr th:each="oDetail,state:${orderDetails}">
+														<td class="text-left" th:text="${oDetail.product.id}">iPhone5 </td>
+														<td class="text-left"><a th:href="@{/product-detail/pid={id}(id=${oDetail.product.id})}"><img width="60px" th:src="@{${'/image/catalog/products/'+oDetail.product.image}}" alt="Xitefun" title="Xitefun" class="img-thumbnail"></a> </td>
+														<td class="text-left" th:text="${oDetail.product.name}">product 11</td>
+														<td class="text-right" th:text="${#numbers.formatInteger(oDetail.unitprice,3,'POINT')}+' VNĐ'"></td>
+														<td class="text-right" th:text="${#numbers.formatInteger(oDetail.discount*100,1,'POINT')}+' %'"></td>
+														<td class="text-right" th:text="${oDetail.quantity}">$123.20</td>
+														<td class="text-right" th:text="${#numbers.formatInteger(oDetail.quantity * oDetail.unitprice*(1-oDetail.discount),3,'POINT') + ' VNĐ'}"></td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="5"></td>
+														<td class="text-right"><b>Sub-Total</b>
+														</td>
+														<td class="text-right" th:text="${#numbers.formatInteger(order.amount,3,'POINT')} + ' VNĐ'">$101.00</td>
+														
+													</tr>
+													<tr>
+														<td colspan="5"></td>
+														<td class="text-right"><b>Flat Shipping Rate</b>
+														</td>
+														<td class="text-right">0 VNĐ</td>
+														
+													</tr>
+													<tr>
+														<td colspan="5"></td>
+														<td class="text-right"><b>Total</b>
+														</td>
+														<td class="text-right" th:text="${#numbers.formatInteger(order.amount,3,'POINT')} + ' VNĐ'">$133.20</td>
+														
+													</tr>
+												</tfoot>
+												</table>
+										</form>
+										<!-- END FORM-->
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+            <script th:inline="javascript">//check status order
+                let status=[[${order.status}]];
+                if(status==1){
+                    document.getElementById("r1").checked=true;
+                }
+                else if(status==2){
+                    document.getElementById("r2").checked=true;
+                }
+                else if(status==3){
+                    document.getElementById("r3").checked=true;
+                }
+                else{
+                    document.getElementById("r4").checked=true;
+                }
+
+            </script>
